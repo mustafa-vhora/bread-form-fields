@@ -32,6 +32,10 @@ class ExtendedBreadFormFieldsMediaController extends VoyagerMediaController
                 // Check permission
                 //Voyager::canOrFail('delete_'.$dataType->name);
                 $this->authorize('delete', app($dataType->model_name));
+                
+                // Remove image storage path
+                $pathDelete = storage_path().'\app\public\\'.$image;
+                unlink($pathDelete);
     
                 // Load model and find record
                 $model = app($dataType->model_name);
