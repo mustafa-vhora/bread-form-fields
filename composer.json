@@ -1,5 +1,5 @@
 {
-    "name": "extended_bread_form_fields",
+    "name": "extendedBreadFormFields",
     "description": "Extended FormFields hook interface to Voyager BREAD",
     "tags": [
         "voyager",
