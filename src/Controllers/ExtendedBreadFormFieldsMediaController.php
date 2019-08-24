@@ -28,11 +28,35 @@ class ExtendedBreadFormFieldsMediaController extends VoyagerMediaController
     
                 // GET THE DataType based on the slug
                 $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
-    
+                $dataRow = Voyager::model('DataRow')
+                                    ->where('data_type_id', '=', $dataType->id)
+                                    ->where('type', '=', 'multiple_images_with_attrs')
+                                    ->first();
+
                 // Check permission
                 //Voyager::canOrFail('delete_'.$dataType->name);
                 $this->authorize('delete', app($dataType->model_name));
+
+                $exploded = explode(".", $image);
+
+                if (count($dataRow->details->thumbnails) > 0) {
+                    for ($i=0; $i < count($dataRow->details->thumbnails); $i++) { 
+                        $nameThumbnails = $dataRow->details->thumbnails[$i]->name;
+
+                        // Thumbnails
+                        $imageThumbnail = $exploded[0].'-'.$nameThumbnails.'.'.$exploded[1];
+
+                        // Remove image cropped storage path
+                        $pathDelete = storage_path().'\app\public\\'.$imageThumbnail;
+                        unlink($pathDelete);
+                    }
+                }
                 
+                $nameThumbnails = $dataRow->details->thumbnails[0]->name;
+
+                // Image
+                $image = $exploded[0].'.'.$exploded[1];
+
                 // Remove image storage path
                 $pathDelete = storage_path().'\app\public\\'.$image;
                 unlink($pathDelete);
@@ -66,6 +90,7 @@ class ExtendedBreadFormFieldsMediaController extends VoyagerMediaController
     
                 // Generate json and update field
                 $data->{$field} = json_encode($fieldData);
+
                 $data->save();
     
                 return response()->json([
