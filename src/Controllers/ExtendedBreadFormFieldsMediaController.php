@@ -51,8 +51,6 @@ class ExtendedBreadFormFieldsMediaController extends VoyagerMediaController
                         unlink($pathDelete);
                     }
                 }
-                
-                $nameThumbnails = $dataRow->details->thumbnails[0]->name;
 
                 // Image
                 $image = $exploded[0].'.'.$exploded[1];
