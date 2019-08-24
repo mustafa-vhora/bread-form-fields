@@ -47,8 +47,8 @@ class ExtendedBreadFormFieldsMediaController extends VoyagerMediaController
                         $imageThumbnail = $exploded[0].'-'.$nameThumbnails.'.'.$exploded[1];
 
                         // Remove image cropped storage path
-                        $pathDelete = storage_path().'\app\public\\'.$imageThumbnail;
-                        unlink($pathDelete);
+                        $path = storage_path('app\public\\').$imageThumbnail;
+                        @unlink($path);
                     }
                 }
 
@@ -56,22 +56,12 @@ class ExtendedBreadFormFieldsMediaController extends VoyagerMediaController
                 $image = $exploded[0].'.'.$exploded[1];
 
                 // Remove image storage path
-                $pathDelete = storage_path().'\app\public\\'.$image;
-                unlink($pathDelete);
+                $pathDelete = storage_path('app\public\\').$image;
+                @unlink($pathDelete);
     
                 // Load model and find record
                 $model = app($dataType->model_name);
                 $data = $model::find([$id])->first();
-    
-                // Check if field exists
-                if (!isset($data->{$field})) {
-                    throw new Exception(__('voyager::generic.field_does_not_exist'), 400);
-                }
-    
-                // Check if valid json
-                if (is_null(@json_decode($data->{$field}))) {
-                    throw new Exception(__('voyager::json.invalid'), 500);
-                }
                 
                 // Decode field value
                 $fieldData = @json_decode($data->{$field}, true);
@@ -80,11 +70,9 @@ class ExtendedBreadFormFieldsMediaController extends VoyagerMediaController
                     if(in_array($image,array_values($single)))
                         $founded = $i;
                 }
-                if(!isset($founded))
-                    throw new Exception(__('voyager::media.image_does_not_exist'), 400);
                 
                 // Remove image from array
-                unset($fieldData[$founded]);
+                unset($fieldData[@$founded]);
     
                 // Generate json and update field
                 $data->{$field} = json_encode($fieldData);
