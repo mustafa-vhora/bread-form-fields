@@ -50,7 +50,6 @@ Add new item / Edit item:
 Final Data:
 
 ![image](https://user-images.githubusercontent.com/2696333/50157304-25b51680-02e2-11e9-8bca-960f9b2edb07.png)
-"# extended_bread_form_fields_new"
 
 ## MODAL Template Custom
 
