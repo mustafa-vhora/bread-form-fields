@@ -56,6 +56,16 @@ Final Data:
 Include in template only:
 
 ```bash
+    // Add area image
+    @foreach($dataType->addRows as $row)
+        @if ($row->type === 'multiple_images_with_attrs')
+            <div class="form-group">
+                <label for="name">{{ $row->display_name }}</label>
+                {!! Voyager::formField($row, $dataType, $dataTypeContent) !!}
+            </div>
+            @break
+        @endif
+    @endforeach
     <div class="modal fade modal-danger" id="confirm_delete_modal">
         <div class="modal-dialog">
             <div class="modal-content">
