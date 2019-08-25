@@ -55,20 +55,18 @@ Final Data:
 ## MODAL Template Custom
 
 Include in template only:
-<!-- MODAL TEMPLATE CUSTOM -->
+
+```bash
 <div class="modal fade modal-danger in" id="confirm_delete_modal">
     <div class="modal-dialog">
         <div class="modal-content">
-
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title"><i class="voyager-warning"></i> Tem certeza</h4>
             </div>
-
             <div class="modal-body">
                 <h4>Tem certeza de que deseja remover '<span class="confirm_delete_name"></span>'</h4>
             </div>
-
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                 <button type="button" class="btn btn-danger" id="confirm_delete">Sim, Remover!</button>
@@ -76,6 +74,7 @@ Include in template only:
         </div>
     </div>
 </div>
+```
 
 
 
